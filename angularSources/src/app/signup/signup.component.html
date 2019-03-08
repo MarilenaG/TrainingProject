@@ -1,0 +1,18 @@
+
+
+
+<form  (ngSubmit) = "onClickSubmit()" [formGroup]="registerForm">
+  
+  <p> Welcome! <br> In order to use the application , please signup first </p>
+  <label>User name    : </label><input pInputText formControlName="userName"  type = "text"  placeholder = "User Name" ngModel>
+  <br/>
+  <label>First name   : </label><input pInputText type = "text" formControlName="firstName" placeholder = "First Name" ngModel>
+  <br/>
+  <label>Last name    : </label><input pInputText type = "text" formControlName="lastName" placeholder = "Last Name" ngModel>
+  <br/>
+  <label>Phone number : </label><input pInputText type = "text" formControlName="contact" placeholder = "Phone number" ngModel>
+  <br/>
+  <label>Password     : </label> <input pInputText type = "password" formControlName="password" placeholder = "Password" ngModel>
+  <br/>
+  <input  type = "submit" value = "submit">
+</form>

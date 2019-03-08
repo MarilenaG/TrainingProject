@@ -1,0 +1,5 @@
+p-datatable.beatDatatable .ui-datatable .ui-datatable-thead .ui-state-default {
+    color: red !important;
+    line-height: 2 !important;
+    text-align: center !important;
+}

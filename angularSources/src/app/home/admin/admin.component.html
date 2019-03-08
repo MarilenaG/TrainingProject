@@ -1,0 +1,59 @@
+
+<p-dataTable [value]="skills">
+    <p-header> List of defined skills</p-header>
+    <p-column field="id" header="Id" [filter]="true" [style]="{'width':'50px'}" ></p-column>
+    <p-column field="title" header="Skill Name" [sortable]="true" [filter]="true" [style]="{'width':'250px'}"></p-column>
+    <p-column field="content" header="Skill description" [filter]="true" [style]="{'width':'250px'}"></p-column>
+    <p-column field="prerequisites" header="Skill prerequisites" [filter]="true" [style]="{'width':'250px'}"></p-column>
+    <p-column header = "Edit" [style]="{'width':'50px'}">
+        <ng-template let-skill="rowData" pTemplate="body">
+            <i class="fa fa-edit" (click)="displayDetailForm(skill)" ></i>
+        </ng-template>
+    </p-column>
+    <p-column header = "Delete" [style]="{'width':'50px'}">
+        <ng-template let-skill="rowData" pTemplate="body">
+            <i class="fa fa-remove" (click)="deleteSkill(skill)" ></i>
+        </ng-template>
+    </p-column>
+</p-dataTable>
+
+<button type="button" pButton (click)="displayDetailForm()">Create skill</button>
+
+<div *ngIf="showSkillDetailForm">
+    <form   [formGroup]="skillDetailForm">
+            <input  type = "hidden" formControlName="id"  /> 
+      <div class="conteiner">
+        <div class="row"> 
+            <div class="col-md-3 ">
+                <label>Title    : </label>
+            </div>   
+            <div class="col-md-6">
+                <input pInputText type = "text" formControlName="title"  /> 
+            </div>       
+        </div>
+        <div class="row"> 
+            <div class="col-md-3 ">
+                <label>Content    : </label>
+            </div>   
+            <div class="col-md-6">
+                <input pInputText type = "text" formControlName="content"  /> 
+            </div>       
+        </div>   
+        <div class="row"> 
+            <div class="col-md-3 ">
+                <label>Prerequisites    : </label>
+            </div>   
+            <div class="col-md-6">
+                <input pInputText type = "text" formControlName="prerequisites"  /> 
+            </div>       
+        </div> 
+        <div class="row">  </div>
+      </div>
+      <div *ngIf="isUpdateMode"><button pButton type="button" (click)=updateSkill()>Submit</button></div>
+      <div *ngIf="!isUpdateMode"><button pButton type="button" (click)=createSkill()>Submit</button></div>
+      </form>
+      
+
+</div>
+
+

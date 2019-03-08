@@ -1,0 +1,60 @@
+<form   [formGroup]="userDetailForm">
+  <input  type = "hidden" formControlName="id"  /> 
+  <input  type = "hidden" formControlName="registrationCode"  /> 
+<div class="container">
+  <div class="row"> 
+    <div class="col-md-3 ">
+        <label>User name    : </label>
+    </div>   
+    <div class="col-md-6">
+        <input pInputText type = "text" formControlName="userName"  /> 
+    </div>       
+  </div>
+  <div class="row"> 
+    <div class="col-md-3 ">
+        <label>First name    : </label>
+    </div>   
+    <div class="col-md-6">
+        <input pInputText type = "text" formControlName="firstName"  /> 
+    </div>       
+  </div>   
+  <div class="row"> 
+    <div class="col-md-3 ">
+        <label>Last name    : </label>
+    </div>   
+    <div class="col-md-6">
+        <input pInputText type = "text" formControlName="lastName"  /> 
+    </div>       
+  </div> 
+  <div class="row"> 
+    <div class="col-md-3 ">
+        <label>Contact  information  : </label>
+    </div>   
+    <div class="col-md-6">
+        <input pInputText type = "text" formControlName="contact"  /> 
+    </div>       
+  </div> 
+  <div class="row"> 
+    <div class="col-md-3 ">
+        <label>Registered on  : </label>
+    </div>   
+    <div class="col-md-6">
+        <input pInputText type = "text" formControlName="registrationDate" disabled="true" /> 
+    </div>       
+  </div>
+
+  
+
+  
+  <div class="row"> 
+    <div class="col-md-3 ">
+        <label>Active    : </label>
+    </div>   
+    <div class="col-md-6">
+      <div *ngIf="active"><i class="fa fa-unlock" ></i></div>
+      <div *ngIf="!active"><i class="fa fa-lock" ></i></div>
+    </div>       
+  </div> 
+</div>
+
+</form>

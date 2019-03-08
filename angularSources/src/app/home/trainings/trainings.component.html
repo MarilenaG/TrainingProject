@@ -1,0 +1,11 @@
+<p-dataTable [value]="trainings">
+  <p-header> List of trainings</p-header>
+  <p-column field="id" header="Id" [filter]="true"  [style]="{'width':'50px'}"></p-column>
+  <p-column field="userName" header="User Name" [sortable]="true" [filter]="true" ></p-column>
+  <p-column field="mentorName" header="Mentor Name" [filter]="true" ></p-column>
+  <p-column field="skillTitle" header="Skill Title" [filter]="true"  ></p-column>
+  <p-column field="status" header="Status" [filter]="true" [style]="{'width':'100px'}" ></p-column>
+  <p-column field="progress" header="Progress" [filter]="true" [style]="{'width':'80px'}" ></p-column>
+  <p-column field="payedPercentage" header="Payed" [filter]="true" [style]="{'width':'80px'}" ></p-column>
+  <p-column field="rating" header="Rating" [filter]="true" [style]="{'width':'80px'}" ></p-column>
+</p-dataTable>

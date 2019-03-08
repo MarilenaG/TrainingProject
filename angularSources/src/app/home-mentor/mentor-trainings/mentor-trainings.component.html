@@ -1,0 +1,40 @@
+<p-dataTable [value]="trainings">
+  <p-header> List of my trainings </p-header>
+  <p-column field="skillTitle" header="Skill Title" [filter]="true"  ></p-column>
+  <p-column field="userName" header="Mentor Name" [filter]="true" ></p-column>
+  <p-column field="status" header="Status" [filter]="true" [style]="{'width':'100px'}" ></p-column>
+  <p-column field="progress" header="Progress" [filter]="true" [style]="{'width':'80px'}" ></p-column>
+  <p-column field="payedPercentage" header="Payed" [filter]="true" [style]="{'width':'80px'}" ></p-column>
+  <p-column field="rating" header="Rating" [filter]="true" [style]="{'width':'80px'}" ></p-column>
+  <p-column header = "Accept" [style]="{'width':'70px'}">
+      <ng-template let-training="rowData" pTemplate="body">
+          <div *ngIf="training.status=='PROPOSED'"><i class="fa fa-edit" (click)="accept(training)" ></i></div>
+          <div *ngIf="training.status=='AWAITING_PAYMENT'|| training.status=='ACCEPTED'|| training.status=='STARTED'|| training.status=='ENDED'"><i class="fa fa-check" ></i></div>
+      </ng-template>
+  </p-column>
+  <p-column header = "Reject" [style]="{'width':'70px'}">
+    <ng-template let-training="rowData" pTemplate="body">
+        <div *ngIf="training.status=='PROPOSED'"><i class="fa fa-edit" (click)="displayRejectPopup(training)" ></i></div>
+        <div *ngIf="training.status=='REJECTED'"><i class="fa fa-check" ></i></div>
+    </ng-template>
+  </p-column>
+</p-dataTable>
+  <input  type = "hidden" [(ngModel)]="selectedMentorId" /> 
+  <p-dialog [(visible)]="showRejectPopup" [style]="{width: '600px', minWidth: '600px'}" [contentStyle]="{'min-height':'100px'}">
+      <form   [formGroup]="rejectForm">
+          <div class="container">
+              <div class="row"> 
+                  <div class="col-md-3 ">
+                      <label>Rejection reason   : </label>
+                  </div>   
+                  <div class="col-md-9">
+                      <textarea style="width:100%;" type="text" formControlName="rejectComments"></textarea> 
+                  </div>       
+              </div>
+          </div>
+      </form>
+      <p-footer>
+          <button type="button" pButton  (click)="rejectProposal()" label="OK"></button>
+          <button type="button" pButton  (click)="showRejectPopup=false" label="Cancel"></button>
+      </p-footer>
+  </p-dialog>

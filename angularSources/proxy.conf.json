@@ -1,0 +1,9 @@
+{
+
+    "/training": {
+        "target": "http://localhost:8091/mentor-on-demand",
+        "secure": false,
+        "logLevel": "debug"
+      }
+  
+  }

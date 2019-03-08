@@ -1,0 +1,18 @@
+
+<p-dataTable [value]="mentors">
+    <p-header> List of aplication mentors</p-header>
+    <p-column field="id" header="Id" [filter]="true" [style]="{'width':'50px'}"></p-column>
+    <p-column field="userName" header="User Name" [sortable]="true" [filter]="true" ></p-column>
+    <p-column field="yearsExperience" header="Years of experience" [filter]="true" [style]="{'width':'80px'}" ></p-column>
+    <p-column field="linkedinUrl" header="LinkedIn" [filter]="true"  ></p-column>
+    <p-column field="mobileNumber" header="Mobile number" [filter]="true" [style]="{'width':'100px'}"></p-column>
+    <p-column field="registrationDate" header="Registration Date" [sortable]="true" [filter]="true" [style]="{'width':'100px'}"></p-column>
+    <p-column field="active" header = "Active" [style]="{'width':'50px'}">
+      <ng-template let-mentor="rowData" pTemplate="body">
+        <span *ngIf="mentor.active" > <i class="fa fa-unlock" (click)="blockMentor(mentor)" ></i></span>
+        <span *ngIf="!mentor.active" ><i class="fa fa-lock" (click)="unblockMentor(mentor)"></i> </span>
+      </ng-template>
+  </p-column>
+  </p-dataTable>
+  
+

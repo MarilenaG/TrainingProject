@@ -1,0 +1,84 @@
+<form   [formGroup]="mentorDetailForm">
+    <input  type = "hidden" formControlName="id"  /> 
+    <input  type = "hidden" formControlName="registrationCode"  /> 
+  <div class="container">
+    <div class="row"> 
+      <div class="col-md-3 ">
+          <label>User name    : </label>
+      </div>   
+      <div class="col-md-6">
+          <input pInputText type = "text" formControlName="userName" disabled /> 
+      </div>       
+    </div>
+    <div class="row"> 
+      <div class="col-md-3 ">
+          <label>Years of experience    : </label>
+      </div>   
+      <div class="col-md-6">
+          <input pInputText type = "text" formControlName="yearsExperience"  /> 
+      </div>       
+    </div>   
+    <div class="row"> 
+      <div class="col-md-3 ">
+          <label>LinkedIn URL   : </label>
+      </div>   
+      <div class="col-md-6">
+          <input pInputText type = "text" formControlName="linkedinUrl"  /> 
+      </div>       
+    </div> 
+    <div class="row"> 
+      <div class="col-md-3 ">
+          <label>IBAN  : </label>
+      </div>   
+      <div class="col-md-6">
+          <input pInputText type = "text" formControlName="mentorIBAN"  /> 
+      </div>  
+    </div> 
+    <div class="row"> 
+        <div class="col-md-3 ">
+            <label>Mobile number  : </label>
+        </div>   
+        <div class="col-md-6">
+            <input pInputText type = "text" formControlName="mobileNumber"  /> 
+        </div>       
+    </div> 
+    <div class="row"> 
+      <div class="col-md-3 ">
+          <label>Registered on  : </label>
+      </div>   
+      <div class="col-md-6">
+          <input pInputText type = "text" formControlName="registrationDate" disabled="true" /> 
+      </div>       
+    </div>
+    
+    <div class="row"> 
+      <div class="col-md-3 ">
+          <label>Active    : </label>
+      </div>   
+      <div class="col-md-6">
+        <div *ngIf="active"><i class="fa fa-unlock" ></i></div>
+        <div *ngIf="!active"><i class="fa fa-lock" ></i></div>
+      </div>       
+    </div> 
+  </div>
+  
+  </form>
+
+
+  <p-dataTable [value]="mentorCalendars" class="align-filters-bottom">
+    <p-header> You are available on these dates </p-header>
+    <p-column field="startTime" header="Between" [filter]="true" ></p-column>
+    <p-column field="endTime" header="And"  [filter]="true" ></p-column>
+    <p-column field="startDate" header="From" [filter]="true"  ></p-column>
+    <p-column field="endDate" header="Untill" [filter]="true"  ></p-column>
+  </p-dataTable>
+<br>
+
+  <p-dataTable [value]="mentorSkills" class="align-filters-bottom">
+      <p-header> You have the following skills </p-header>
+      <p-column field="skill.title" header="Skill" [filter]="true" [style]="{'width':'250px'}"></p-column>
+      <p-column field="skillRating" header="Skill rating"  [filter]="true" [style]="{'width':'70px'}" ></p-column>
+      <p-column field="yearsExperience" header="Years of experience"  [filter]="true" [style]="{'width':'70px'}"></p-column>
+      <p-column field="trainingsDelivered" header="Delivered trainings" [filter]="true" [style]="{'width':'70px'}" ></p-column>
+      <p-column field="fee" header="Fee" [filter]="true" [style]="{'width':'70px'}"  ></p-column>
+  </p-dataTable>

@@ -1,0 +1,151 @@
+
+<form   [formGroup]="searchCriteriaForm">
+ 
+<div class="container">
+  <div class="row"> 
+    <div class="col-md-3 ">
+        <label>Skill    : </label>
+    </div>   
+    <div class="col-md-6">
+        
+        <p-dropdown [options]="skillOptionsArray" formControlName="skillId"></p-dropdown>
+    </div>       
+  </div>
+  <div class="row"> 
+    <div class="col-md-3 ">
+        <label>Desired Date    : </label>
+    </div>   
+    <div class="col-md-6">
+        <p-calendar  formControlName="desiredDate" > </p-calendar>
+    </div>       
+  </div>   
+  <div class="row"> 
+      <div class="col-md-3 ">
+          <label>From     : </label>
+      </div>   
+      <div class="col-md-6">
+          <input pInputText  type = "time" formControlName="fromTime"  /> 
+      </div>       
+    </div>  
+    <div class="row"> 
+        <div class="col-md-3 ">
+            <label>Until   : </label>
+        </div>   
+        <div class="col-md-6">
+            <input pInputText  type = "time" formControlName="toTime"  /> 
+        </div>       
+      </div>  
+  
+</div>
+<button pButton  type="button" (click)=searchMentorByDate() >Search</button>
+</form>
+
+
+<p-dataTable [value]="mentorsList">
+    <p-header> List of available mentors for your search criteria </p-header>
+    <p-column field="id" header="Id" [filter]="true" [style]="{'width':'50px'}"></p-column>
+    <p-column field="userName" header="Mentor Name" [sortable]="true" [filter]="true" ></p-column>
+    <p-column field="yearsExperience" header="Years of experience" [filter]="true" [style]="{'width':'80px'}" ></p-column>
+    <p-column field="linkedinUrl" header="LinkedIn" [filter]="true"  ></p-column>
+    <p-column field="mobileNumber" header="Mobile number" [filter]="true" [style]="{'width':'100px'}"></p-column>
+    <p-column field="registrationDate" header="Registration Date" [filter]="true" [style]="{'width':'100px'}"></p-column>
+    <p-column  header="Fee" [filter]="true" [style]="{'width':'100px'}">
+            <ng-template let-mentor="rowData" pTemplate="body">
+                    {{mentor.skils[0].fee}}
+            </ng-template>
+    </p-column>
+    <p-column header = "Details" [style]="{'width':'50px'}">
+        <ng-template let-mentor="rowData" pTemplate="body">
+            <i class="fa fa-search" (click)="showMentorDetails(mentor)" ></i>
+        </ng-template>
+    </p-column>
+    <p-column header = "Propose training" [style]="{'width':'70px'}">
+        <ng-template let-mentor="rowData" pTemplate="body">
+            <i class="fa fa-edit" (click)="showProposeTraining(mentor)" ></i>
+        </ng-template>
+    </p-column>
+  </p-dataTable>
+
+  <p-dialog [(visible)]="showMentorHistory" [style]="{width: '600px', minWidth: '600px'}">
+        <p-dataTable [value]="mentorCalendars" class="align-filters-bottom">
+                <p-header> This mentor is available on these dates </p-header>
+                <p-column field="startTime" header="Between" [filter]="true" ></p-column>
+                <p-column field="endTime" header="And"  [filter]="true" ></p-column>
+                <p-column field="startDate" header="From" [filter]="true"  ></p-column>
+                <p-column field="endDate" header="Untill" [filter]="true"  ></p-column>
+        </p-dataTable>
+        <br>
+        
+        <p-dataTable [value]="mentorSkills" class="align-filters-bottom">
+                <p-header> This mentor has following skills </p-header>
+                <p-column field="skill.title" header="Skill" [filter]="true" [style]="{'width':'250px'}"></p-column>
+                <p-column field="skillRating" header="Skill rating"  [filter]="true" [style]="{'width':'70px'}" ></p-column>
+                <p-column field="yearsExperience" header="Years of experience"  [filter]="true" [style]="{'width':'70px'}"></p-column>
+                <p-column field="trainingsDelivered" header="Delivered trainings" [filter]="true" [style]="{'width':'70px'}" ></p-column>
+                <p-column field="fee" header="Fee" [filter]="true" [style]="{'width':'70px'}"  ></p-column>
+        </p-dataTable>
+
+        <p-dataTable [value]="mentorTrainingsHistory" class="align-filters-bottom">  
+                <p-header> Trainings this mentor performed </p-header>       
+                <p-column field="skillTitle" header="Skill Title" [filter]="true"  [style]="{'width':'250px'}" ></p-column>
+                <p-column field="status" header="Status" [filter]="true" [style]="{'width':'70px'}" ></p-column>
+                <p-column field="rating" header="Rating" [filter]="true" [style]="{'width':'50px'}" ></p-column>
+        </p-dataTable>
+    <!-- </div> -->
+
+        <p-footer>
+            <button type="button" pButton (click)="showMentorHistory=false" label="OK"></button>
+        </p-footer>
+    </p-dialog>
+
+    <p-dialog [(visible)]="showProposeDetails" [style]="{width: '600px', minWidth: '600px'}">
+        <form   [formGroup]="formProposeTraining">
+            <div class="container">
+                <div class="row"> 
+                    <div class="col-md-6 ">
+                        <label>Mentor   : </label>
+                    </div>   
+                    <div class="col-md-4">
+                        <input pInputText type = "text" formControlName="mentorName" disabled /> 
+                    </div>       
+                </div>
+                <div class="row"> 
+                    <div class="col-md-6 ">
+                        <label>Start date   : </label>
+                    </div>   
+                    <div class="col-md-4">
+                        <p-calendar  formControlName="startDate" > </p-calendar>
+                    </div>       
+                </div>
+                <div class="row"> 
+                    <div class="col-md-6 ">
+                        <label>End date   : </label>
+                    </div>   
+                    <div class="col-md-4"> 
+                        <p-calendar  formControlName="endDate" > </p-calendar>
+                    </div>       
+                </div>
+                <div class="row"> 
+                    <div class="col-md-6 ">
+                        <label>Start time   : </label>
+                    </div>   
+                    <div class="col-md-4">
+                        <input pInputText type = "time" formControlName="fromTime"   /> 
+                    </div>       
+                </div>
+                <div class="row"> 
+                    <div class="col-md-6 ">
+                        <label>End time   : </label>
+                    </div>   
+                    <div class="col-md-4">
+                        <input pInputText type = "time" formControlName="toTime"   /> 
+                    </div>       
+                </div>
+            </div>
+        </form>
+        <p-footer>
+            <button pButton type="button" (click)="proposeTraining()" label="OK"></button>
+            <button type="button" pButton  (click)="showProposeDetails=false" label="Cancel"></button>
+        </p-footer>
+    </p-dialog>
+    

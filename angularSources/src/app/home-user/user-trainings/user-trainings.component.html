@@ -1,0 +1,68 @@
+<p-dataTable [value]="trainings">
+    <p-header> List of my trainings </p-header>
+    <p-column field="skillTitle" header="Skill Title" [filter]="true"  ></p-column>
+    <p-column field="mentorName" header="Mentor Name" [filter]="true" ></p-column>
+    <p-column field="status" header="Status" [filter]="true" [style]="{'width':'100px'}" ></p-column>
+    <p-column field="progress" header="Progress" [filter]="true" [style]="{'width':'80px'}" ></p-column>
+    <p-column field="rating" header="Rating" [filter]="true" [style]="{'width':'80px'}" ></p-column>
+    <p-column header = "Finalize" [style]="{'width':'70px'}">
+        <ng-template let-training="rowData" pTemplate="body">
+            <div *ngIf="training.status=='ACCEPTED'"><i class="fa fa-edit" (click)="finalize(training)" ></i></div>
+            <div *ngIf="training.status=='AWAITING_PAYMENT'||training.status=='STARTED'||training.status=='ENDED'"><i class="fa fa-check" ></i></div>
+        </ng-template>
+    </p-column>
+    <p-column header = "Rate" [style]="{'width':'70px'}">
+        <ng-template let-training="rowData" pTemplate="body">
+            <div *ngIf="training.status=='STARTED'||training.status=='ENDED'"><i class="fa fa-edit" (click)="rateTraining(training)" ></i></div>
+        </ng-template>
+    </p-column>
+    <p-column header = "Progress" [style]="{'width':'70px'}">
+        <ng-template let-training="rowData" pTemplate="body">
+            <div *ngIf="training.status=='STARTED'"><i class="fa fa-edit" (click)="updateProgressTraining(training)" ></i></div>
+        </ng-template>
+    </p-column>
+    <p-column header = "Pay" [style]="{'width':'70px'}">
+        <ng-template let-training="rowData" pTemplate="body">
+            <div *ngIf="training.status=='AWAITING_PAYMENT'"><i class="fa fa-edit" (click)="pay(training)" ></i></div>
+            <div *ngIf="training.status=='STARTED'||training.status=='ENDED'"><i class="fa fa-check" ></i></div>
+        </ng-template>
+    </p-column>
+    
+  </p-dataTable>
+  
+    <p-dialog [(visible)]="showRatingPopup" [style]="{width: '600px', minWidth: '600px'}" [contentStyle]="{'min-height':'170px'}">
+        <div class="container">
+            <div class="row"> 
+                <div class="col-md-6 ">
+                    <label>How did you like this training   : </label>
+                </div>   
+                <div class="col-md-4">
+                    <p-dropdown [options]="ratings" [(ngModel)]="selectedRating" baseZIndex="11000"></p-dropdown>
+                </div>       
+            </div>
+        </div>
+        
+      <p-footer>
+          <button type="button" pButton  (click)="saveRating()" label="OK"></button>
+          <button type="button" pButton  (click)="showRatingPopup=false" label="Cancel"></button>
+      </p-footer>
+    </p-dialog>
+    <input  type = "hidden" [(ngModel)]="selectedTrainingId" /> 
+    <p-dialog [(visible)]="showProgressPopup" [style]="{width: '600px', minWidth: '600px'}" [contentStyle]="{'min-height':'100px'}">
+        <form   [formGroup]="progressForm">
+            <div class="container">
+                <div class="row"> 
+                    <div class="col-md-6 ">
+                        <label>Declare training progress (%)   : </label>
+                    </div>   
+                    <div class="col-md-4">
+                        <input pInputText type = "number" formControlName="selectedProgress"  /> 
+                    </div>       
+                </div>
+            </div>
+        </form>
+        <p-footer>
+            <button type="button" pButton  (click)="saveProgress()" label="OK"></button>
+            <button type="button" pButton  (click)="showProgressPopup=false" label="Cancel"></button>
+        </p-footer>
+    </p-dialog>
